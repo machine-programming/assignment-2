@@ -1,0 +1,14 @@
+# Core dependencies for program synthesis project
+
+# Google Generative AI for Gemini API
+google-generativeai>=0.3.0
+
+# Progress bars and utilities
+tqdm>=4.65.0
+
+# Data analysis (optional, for evaluation metrics)
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0

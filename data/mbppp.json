@@ -1,0 +1,257 @@
+[
+  {
+    "description": "Write a program that implements the following functionality: write a function to convert the given set into ordered tuples.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains 5 integers, one per line",
+    "output_spec": "Print the result as space-separated integers",
+    "notes": "This problem is based on implementing the set_to_tuple function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "1\n2\n3\n4\n5",
+      "6\n7\n8\n9\n10\n11",
+      "12\n13\n14\n15\n16"
+    ],
+    "sample_outputs": [
+      "1 2 3 4 5",
+      "6 7 8 9 10 11",
+      "12 13 14 15 16"
+    ],
+    "tags": [
+      "data structures"
+    ],
+    "src_uid": "mbpp_341",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to count bidirectional tuple pairs.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains 6 pairs of integers, each pair separated by a space on a separate line",
+    "output_spec": "Print the result as a single integer",
+    "notes": "This problem is based on implementing the count_bidirectional function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "5 6\n1 2\n6 5\n9 1\n6 5\n2 1",
+      "5 6\n1 3\n6 5\n9 1\n6 5\n2 1",
+      "5 6\n1 2\n6 5\n9 2\n6 5\n2 1"
+    ],
+    "sample_outputs": [
+      "3",
+      "2",
+      "4"
+    ],
+    "tags": [
+      "counting",
+      "data structures"
+    ],
+    "src_uid": "mbpp_438",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to find the maximum sum of increasing subsequence from prefix till ith index and also including a given kth element which is after i, i.e., k > i .",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The first line of the input contains n integers separated by spaces, the second line contains a single integer n, the third line contains a single integer index, the last line contains a single integer k",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the max_sum_increasing_subseq function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "1 101 2 3 100 4 5\n7\n4\n6",
+      "1 101 2 3 100 4 5\n7\n2\n5",
+      "11 15 19 21 26 28 31\n7\n2\n4"
+    ],
+    "sample_outputs": [
+      "11",
+      "7",
+      "71"
+    ],
+    "tags": [
+      "implementation"
+    ],
+    "src_uid": "mbpp_306",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to count array elements having modular inverse under given prime number p equal to itself.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains 3 lines. The first line contains the array of integers separated by spaces, the second line is the number N, the third line is a single integer P",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the modular_inverse function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "1 6 4 5\n4\n7",
+      "1 3 8 12 12\n5\n13",
+      "2 3 4 5\n4\n6"
+    ],
+    "sample_outputs": [
+      "2",
+      "3",
+      "1"
+    ],
+    "tags": [
+      "counting",
+      "arrays",
+      "math"
+    ],
+    "src_uid": "mbpp_288",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to substract the contents of one tuple with corresponding index of other tuple.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains two lines, where each line is a tuple of 3 integers separated by spaces",
+    "output_spec": "Print the result as space-separated integers",
+    "notes": "This problem is based on implementing the substract_elements function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "10 4 5\n2 5 18",
+      "11 2 3\n24 45 16",
+      "7 18 9\n10 11 12"
+    ],
+    "sample_outputs": [
+      "8 -1 -13",
+      "-13 -43 -13",
+      "-3 7 -3"
+    ],
+    "tags": [
+      "data structures"
+    ],
+    "src_uid": "mbpp_273",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to find out the minimum no of swaps required for bracket balancing in the given string.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains a string of brackets which may not be balanced",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the swap_count function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "[]][][",
+      "[[][]]",
+      "[[][]]]["
+    ],
+    "sample_outputs": [
+      "2",
+      "0",
+      "1"
+    ],
+    "tags": [
+      "strings",
+      "greedy"
+    ],
+    "src_uid": "mbpp_386",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to find the first maximum length of even word.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains a string of words separated by spaces",
+    "output_spec": "Print the result word that is the first maximum length of even word, or -1 if there is no even word",
+    "notes": "This problem is based on implementing the find_Max_Len_Even function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "python language",
+      "maximum even length",
+      "eve"
+    ],
+    "sample_outputs": [
+      "language",
+      "length",
+      "-1"
+    ],
+    "tags": [
+      "implementation"
+    ],
+    "src_uid": "mbpp_315",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to count hexadecimal numbers for a given range.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains 2 values separated by spaces",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the count_Hexadecimal function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "10 15",
+      "2 4",
+      "15 16"
+    ],
+    "sample_outputs": [
+      "6",
+      "0",
+      "1"
+    ],
+    "tags": [
+      "counting",
+      "math"
+    ],
+    "src_uid": "mbpp_107",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to check the given decimal with a precision of 2 by using regex.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains a string",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the is_decimal function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "123.11",
+      "0.21",
+      "123.1214"
+    ],
+    "sample_outputs": [
+      "True",
+      "True",
+      "False"
+    ],
+    "tags": [
+      "strings"
+    ],
+    "src_uid": "mbpp_208",
+    "difficulty": 300
+  },
+  {
+    "description": "Write a program that implements the following functionality: write a function to find the sum of absolute differences in all pairs of the given array.",
+    "input_from": "standard input",
+    "output_to": "standard output",
+    "time_limit": 1.0,
+    "memory_limit": "256 megabytes",
+    "input_spec": "The input contains n+1 integers, one per line (first n values are the array, last value is the array length)",
+    "output_spec": "Print the result as an integer",
+    "notes": "This problem is based on implementing the sum_Pairs function. The program should read input from stdin and print the result to stdout.",
+    "sample_inputs": [
+      "1\n8\n9\n15\n16\n5",
+      "1\n2\n3\n4\n4",
+      "1\n2\n3\n4\n5\n7\n9\n11\n14\n9"
+    ],
+    "sample_outputs": [
+      "74",
+      "10",
+      "188"
+    ],
+    "tags": [
+      "arrays"
+    ],
+    "src_uid": "mbpp_144",
+    "difficulty": 300
+  }
+]
