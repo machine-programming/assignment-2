@@ -43,6 +43,7 @@ Figures
 
 Optional
 - `acknowledgements.md` (collaboration notes, AI usage, credits)
+- `extra_credit.md` (if you have attempted extra credits)
 - Other files that you have altered
 
 > *Note*: It is okay to modify the project files beyond the functions we ask you to implement.
