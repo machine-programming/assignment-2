@@ -53,19 +53,19 @@ class GeminiClient:
             Generated content as string
         """
         try:
-            print(f"  Calling Gemini API (timeout: {timeout}s)...")
             start_time = time.time()
             
             # Set generation config with timeout
             generation_config = kwargs.get('generation_config', {})
-            generation_config.update({ 'temperature': 0.5 })
+            generation_config.update({ 
+                'temperature': 0.5, 
+                'max_output_tokens': 6400,
+            })
             kwargs['generation_config'] = generation_config
             
             response = self.client.generate_content(prompt, **kwargs)
             
             elapsed_time = time.time() - start_time
-            print(f"  API call completed in {elapsed_time:.2f}s")
-            print(response)
 
             if response.text is None:
                 raise RuntimeError("Empty response from Gemini API")

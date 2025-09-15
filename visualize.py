@@ -10,6 +10,7 @@ import json
 import os
 import glob
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import numpy as np
 from typing import Dict, Optional
 import argparse
@@ -32,6 +33,12 @@ class ExperimentVisualizer:
         self.models = ["gemini-2.5-flash-lite", "gemini-1.5-flash"]
         self.prompting_methods = ["zero_shot", "two_step_chain_of_thought", "iterative_refinement", "YOUR_CUSTOM_PROMPTING_METHOD"]
         self.prompting_labels = ["Zero-Shot", "Chain of Thought", "Iterative Refinement", "Your Custom Prompting Method"]
+
+        ################################################################################
+        #                                                                              #
+        # TODO: Part 4b. Specify your own prompting method above.                      #
+        #                                                                              #
+        ################################################################################
         
         # Colors for prompting methods
         self.colors = {
@@ -92,46 +99,6 @@ class ExperimentVisualizer:
         
         return experiment_data
     
-    def _create_mock_data(self) -> Dict[str, Dict[str, Dict[str, float]]]:
-        """
-        Create mock data for demonstration when no real data is available.
-        
-        Returns:
-            Mock experiment data
-        """
-        print("No experiment data found. Generating mock data for demonstration.")
-        
-        # Generate realistic-looking mock data
-        mock_data = {}
-        
-        for language in self.languages:
-            mock_data[language] = {}
-            for model in self.models:
-                mock_data[language][model] = {}
-                
-                # Base performance varies by language and model
-                if model == "gemini-1.5-flash":
-                    base_performance = {"python": 0.65, "rust": 0.45, "ocaml": 0.35}
-                else:  # gemini-2.5-flash-lite
-                    base_performance = {"python": 0.70, "rust": 0.50, "ocaml": 0.40}
-                
-                base = base_performance[language]
-                
-                # Prompting method multipliers
-                multipliers = {
-                    "zero_shot": 1.0,
-                    "two_step_chain_of_thought": 1.15,
-                    "iterative_refinement": 1.25
-                }
-                
-                for method in self.prompting_methods:
-                    # Add some random variation
-                    variation = np.random.normal(0, 0.05)
-                    performance = max(0.0, min(1.0, base * multipliers[method] + variation))
-                    mock_data[language][model][method] = performance
-        
-        return mock_data
-    
     def plot_main_figure(self, save_path: Optional[str] = None, use_mock_data: bool = False):
         """
         Create the main figure with 3 subfigures for each programming language.
@@ -146,27 +113,25 @@ class ExperimentVisualizer:
 
         # Use mock data if requested or no real data available
         data_to_plot = self.experiment_data
-        if use_mock_data or not any(
-            any(any(values.values()) for values in model_data.values()) 
-            for model_data in data_to_plot.values()
-        ):
-            data_to_plot = self._create_mock_data()
 
         # Create figure with 3 subplots
         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
         fig.suptitle('Pass@3 Metrics Across Programming Languages, Models, and Prompting Methods', 
                      fontsize=16, fontweight='bold')
         
-        ################################################################################
-        #                                                                              #
-        # TODO: Part 4a. Implement the main figure plot.                               #
-        #                                                                              #
-        # - Populate the data_to_plot with the experiment data.                        #
-        # - Plot the data into the 3 subplots.                                         #
-        # - Add a legend to the figure.                                                #
-        #                                                                              #
-        ################################################################################
-
+        # Plot each language
+        for i, language in enumerate(self.languages):
+            ax = axes[i]
+            self._plot_language_subplot(ax, language, data_to_plot[language])
+        
+        # Add legend
+        legend_elements = [
+            mpatches.Patch(color=self.colors[method], label=label)
+            for method, label in zip(self.prompting_methods, self.prompting_labels)
+        ]
+        fig.legend(handles=legend_elements, loc='upper center', 
+                  bbox_to_anchor=(0.5, 0.02), ncol=3, fontsize=12)
+        
         # Adjust layout
         plt.tight_layout()
         plt.subplots_adjust(bottom=0.15)
@@ -176,10 +141,49 @@ class ExperimentVisualizer:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
             print(f"Figure saved to: {save_path}")
     
+    def _plot_language_subplot(self, ax, language: str, language_data: Dict[str, Dict[str, float]]):
+        """
+        Plot a subplot for a specific programming language.
+        
+        Args:
+            ax: Matplotlib axis object
+            language: Programming language name
+            language_data: Data for this language
+        """
+        # Set up data for grouped bar chart
+        x = np.arange(len(self.models))  # Model positions
+        width = 0.25  # Width of bars
+        
+        # Plot bars for each prompting method
+        for i, (method, label) in enumerate(zip(self.prompting_methods, self.prompting_labels)):
+            values = [language_data[model][method] for model in self.models]
+            bars = ax.bar(x + i * width, values, width, 
+                         label=label, color=self.colors[method], 
+                         alpha=0.8, edgecolor='black', linewidth=0.5)
+            
+            # Add value labels on bars
+            for bar, value in zip(bars, values):
+                height = bar.get_height()
+                ax.text(bar.get_x() + bar.get_width()/2., height + 0.01,
+                       f'{value:.3f}', ha='center', va='bottom', fontsize=9)
+        
+        # Customize subplot
+        ax.set_title(f'{language.capitalize()}', fontsize=14, fontweight='bold')
+        ax.set_xlabel('Language Model', fontsize=12)
+        ax.set_ylabel('Pass@3', fontsize=12)
+        ax.set_xticks(x + width)
+        ax.set_xticklabels(self.models, fontsize=10)
+        ax.set_ylim(0, 1.0)
+        ax.grid(True, alpha=0.3, axis='y')
+        
+        # Add horizontal line at 50%
+        ax.axhline(y=0.5, color='red', linestyle='--', alpha=0.5, linewidth=1)
+    
     def PLOT_YOUR_CUSTOM_FIGURE(self, save_path: Optional[str] = None):
         ################################################################################
         #                                                                              #
-        # TODO: Part 4b. Implement the your custom figure plot.                        #
+        # TODO: Part 4b. Create a visualization studying one aspect of the synthesis   #
+        # experiments.                                                                 #
         #                                                                              #
         # Ideas:                                                                       #
         # - Plot a line chart of pass@x for x=1, 2, 3                                  #
@@ -225,7 +229,6 @@ def main():
     parser = argparse.ArgumentParser(description="Visualize program synthesis experiment results")
     parser.add_argument("--reports-dir", "-d", default="reports", help="Directory containing JSON report files (default: reports)")
     parser.add_argument("--save-path", "-s", help="Path to save the figure (default: visualizations/main_figure.png)")
-    parser.add_argument("--mock-data", action="store_true", help="Use mock data for demonstration")
     parser.add_argument("--summary-only", action="store_true", help="Print data summary only, don't create plots")
     
     args = parser.parse_args()
@@ -245,7 +248,7 @@ def main():
 
         ################################################################################
         #                                                                              #
-        # TODO: Part 4b. Implement the your custom figure plot.                        #
+        # TODO: Part 4b. Your own visualization plot. Uncomment the line below.        #
         #                                                                              #
         ################################################################################
         

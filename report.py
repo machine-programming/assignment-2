@@ -13,7 +13,6 @@ class EvaluationReport:
         self.synthesized_program: str = synthesized_program
         
         # Compilation/execution status
-        self.synthesized: bool = False
         self.compiles: bool = False
         self.executes: bool = False
         
@@ -26,7 +25,6 @@ class EvaluationReport:
         # Output and errors
         self.stdout: str = ""
         self.stderr: str = ""
-        self.synthesizer_errors: List[str] = []
         self.compiler_errors: List[str] = []
         self.runtime_errors: List[str] = []
         self.warnings: List[str] = []
@@ -60,10 +58,7 @@ class EvaluationReport:
     
     def add_error(self, error_type: str, error_message: str):
         """Add an error to the report."""
-        if error_type == "synthesizer":
-            self.synthesizer_errors.append(error_message)
-            self.synthesized = False
-        elif error_type == "compiler":
+        if error_type == "compiler":
             self.compiler_errors.append(error_message)
             self.has_syntax_errors = True
         elif error_type == "runtime":
@@ -91,7 +86,6 @@ class EvaluationReport:
         """Convert report to dictionary."""
         return {
             "synthesized_program": self.synthesized_program,
-            "synthesized": self.synthesized,
             "compiles": self.compiles,
             "executes": self.executes,
             "total_tests": self.total_tests,
@@ -102,7 +96,6 @@ class EvaluationReport:
             "test_results": self.test_results,
             "stdout": self.stdout,
             "stderr": self.stderr,
-            "synthesizer_errors": self.synthesizer_errors,
             "compiler_errors": self.compiler_errors,
             "runtime_errors": self.runtime_errors,
             "warnings": self.warnings,

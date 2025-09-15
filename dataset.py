@@ -35,7 +35,7 @@ class ProgramSynthesisDatapoint:
 
 class ProgramSynthesisDataset:
     def __init__(self, 
-                 data_file: str = "data/prog_syn_val.jsonl",
+                 data_file: str = "data/dataset.jsonl",
                  difficulty_cutoff: Optional[int] = None,
                  max_samples: int = 20):
         """
