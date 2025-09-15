@@ -383,6 +383,12 @@ When the program runs successfully, you should compare its outputs against the e
 
 Once your implementation is complete, test it with the provided unit tests:
 
+``` bash
+python test_evaluate_ocaml.py
+```
+
+If your evaluator is correct, you should pass all the test cases.
+
 # Part 2: Prompting Strategies
 
 In this part of the assignment, you will implement four prompting strategies inside the file [`synthesizer.py`](synthesizer.py).
