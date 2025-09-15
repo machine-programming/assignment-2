@@ -322,7 +322,7 @@ def main():
     parser.add_argument("--prompting-method", "-p", required=True, choices=["zero_shot", "few_shot", "two_step_chain_of_thought", "two_step_self_reflection", "code_transpilation", "iterative_refinement"], help="Prompting method to use")
     parser.add_argument("--model-name", "-m", default="gemini-1.5-flash", help="Name of the model to use (default: gemini-1.5-flash)")
     parser.add_argument("--api-key", help="API key for the model (if not provided, will use GEMINI_API_KEY environment variable)")
-    parser.add_argument("--max-pass-at-k", "-k", type=int, default=5, help="Maximum number of attempts for pass@k calculation (default: 5)")
+    parser.add_argument("--max-pass-at-k", "-k", type=int, default=3, help="Maximum number of attempts for pass@k calculation (default: 3)")
     parser.add_argument("--samples", "-s", type=int, default=30, help="Number of samples to evaluate (default: 30)")
     parser.add_argument("--dry-run", action="store_true", help="Run in dry-run mode (no API calls, simulate synthesis failures)")
     parser.add_argument("--api-timeout", type=int, default=120, help="API timeout in seconds (default: 120)")
