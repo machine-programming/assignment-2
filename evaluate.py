@@ -319,7 +319,7 @@ def main():
     parser = argparse.ArgumentParser(description="Evaluate program synthesis with pass@k metrics", formatter_class=argparse.RawDescriptionHelpFormatter)
     
     parser.add_argument("--target-language", "-l", required=True, choices=["python", "rust", "ocaml"], help="Target programming language")
-    parser.add_argument("--prompting-method", "-p", required=True, choices=["zero_shot", "few_shot", "two_step_chain_of_thought", "two_step_self_reflection", "code_transpilation", "iterative_refinement"], help="Prompting method to use")
+    parser.add_argument("--prompting-method", "-p", required=True, choices=["zero_shot", "two_step_chain_of_thought", "iterative_refinement"], help="Prompting method to use")
     parser.add_argument("--model-name", "-m", default="gemini-1.5-flash", help="Name of the model to use (default: gemini-1.5-flash)")
     parser.add_argument("--api-key", help="API key for the model (if not provided, will use GEMINI_API_KEY environment variable)")
     parser.add_argument("--max-pass-at-k", "-k", type=int, default=3, help="Maximum number of attempts for pass@k calculation (default: 3)")
