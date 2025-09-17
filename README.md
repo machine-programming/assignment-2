@@ -587,7 +587,7 @@ Implement this in `visualize.py` by completing `PLOT_YOUR_CUSTOM_FIGURE`, and sa
 The goal is to demonstrate that rich insights can be mined from your existing logs without inventing new experiments; 
 good figures tell a story and often suggest the next research question.
 
-```
+``` python
 def PLOT_YOUR_CUSTOM_FIGURE(self, save_path: Optional[str] = None):
     ################################################################################
     # TODO: Part 4b. Create a visualization that studies one aspect of your results.
