@@ -11,7 +11,7 @@ from dataset import ProgramSynthesisDatapoint
 
 
 class RustProgramSynthesizer(ProgramSynthesizer):
-    def __init__(self, prompting_method: str = "zero_shot", model_name: str = "gemini-1.5-flash", 
+    def __init__(self, prompting_method: str = "zero_shot", model_name: str = "us.anthropic.claude-haiku-4-5", 
                  api_key: Optional[str] = None, logger: Optional[SynthesisLogger] = None):
         super().__init__("rust", prompting_method, model_name, api_key, logger)
 

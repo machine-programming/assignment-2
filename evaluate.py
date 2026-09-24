@@ -3,7 +3,7 @@
 Evaluation script for program synthesis.
 
 Usage:
-    python evaluate.py --target-language python --prompting-method zero_shot --model-name gemini-1.5-flash --max-pass-at-k 5 --samples 10
+    python evaluate.py --target-language python --prompting-method zero_shot --model-name us.anthropic.claude-haiku-4-5 --max-pass-at-k 5 --samples 10
     python evaluate.py --target-language python --prompting-method zero_shot --dry-run --max-pass-at-k 3 --samples 5
 """
 
@@ -320,8 +320,8 @@ def main():
     
     parser.add_argument("--target-language", "-l", required=True, choices=["python", "rust", "ocaml"], help="Target programming language")
     parser.add_argument("--prompting-method", "-p", required=True, choices=["zero_shot", "two_step_chain_of_thought", "iterative_refinement"], help="Prompting method to use")
-    parser.add_argument("--model-name", "-m", default="gemini-1.5-flash", help="Name of the model to use (default: gemini-1.5-flash)")
-    parser.add_argument("--api-key", help="API key for the model (if not provided, will use GEMINI_API_KEY environment variable)")
+    parser.add_argument("--model-name", "-m", default="us.anthropic.claude-haiku-4-5", help="Bedrock model ID to use (default: us.anthropic.claude-haiku-4-5)")
+    parser.add_argument("--api-key", help="API key for the model (if not provided, will use AWS_BEARER_TOKEN_BEDROCK environment variable)")
     parser.add_argument("--max-pass-at-k", "-k", type=int, default=3, help="Maximum number of attempts for pass@k calculation (default: 3)")
     parser.add_argument("--samples", "-s", type=int, default=30, help="Number of samples to evaluate (default: 30)")
     parser.add_argument("--dry-run", action="store_true", help="Run in dry-run mode (no API calls, simulate synthesis failures)")

@@ -34,7 +34,7 @@ Code Files
 
 Experiment Reports (JSONL)
 - `reports/`
-  - `python_zero_shot_gemini-2.0-flash-lite.jsonl`
+  - `python_zero_shot_us.anthropic.claude-haiku-4-5.jsonl`
   - … (one file per experiment, 24 in total)
 
 Figures
@@ -78,17 +78,17 @@ Similar to what we have done in Assignment 1, please record what you find to be 
 
 ### 🔑 LLM API Key
 
-For this assignment, we will provide each of you with a Google Gemini API key.
+For this assignment, we will provide each of you with an Amazon Bedrock API key.
 This key is intended for use only within the context of this course.
 Please do not share it with others, especially outside of the class. We will monitor usage, and in cases of excessive or inappropriate use, keys may be revoked.
 Once you receive your key, you can set it as an environment variable so that your programs can access it. For example, in a Unix-like shell you can run:
 
 ``` bash
-export GEMINI_API_KEY="your_api_key_here"
+export AWS_BEARER_TOKEN_BEDROCK="your_api_key_here"
 ```
 
-Be mindful that you may occasionally encounter temporary rate limits due to traffic, or our shared account may run low on available credit.
-If that happens, you are encouraged to notify us by email or through a Courselore post so we can issue new keys as needed. To avoid delays, you also have the option of registering a personal Google account and claiming the free $300 credit offered through [Google Vertex AI](https://cloud.google.com/vertex-ai), which will allow you to generate your own API key for use in the assignment.
+Be mindful that you may occasionally encounter temporary rate limits due to traffic.
+If that happens, you are encouraged to notify us by email or through a Courselore post so we can issue new keys as needed.
 
 ### 🧭 Integrity Guidelines
 
@@ -404,8 +404,8 @@ Your implementation must craft prompts, send them to the model, and then return 
 In the case of two-step chain-of-thought prompting, you will need to structure this as two interactions with the model.
 
 To query the LLM, use the method already available in the codebase: `self.model.generate_content(...)`.
-The object `self.model` is configured as a `GeminiClient`, which wraps the Gemini API.
-You should consult the [Google Gemini Python SDK](https://googleapis.github.io/python-genai#how-to-structure-contents-argument-for-generate-content) for details about structuring the contents and, if needed, about using [system instructions](https://googleapis.github.io/python-genai/#system-instructions-and-other-configs).
+The object `self.model` is configured as a `BedrockClient`, which wraps the Amazon Bedrock Converse API.
+The client sends prompts via `self.model.generate_content(prompt)` and returns the generated text as a string.
 
 ## Part 2c: Iterative Refinement with Feedback
 
@@ -443,14 +443,14 @@ This script lets you run a single synthesis experiment with configurable paramet
 
 ```bash
 python synthesize_one.py \
-    --model-name gemini-2.5-flash-lite \
+    --model-name us.anthropic.claude-sonnet-4-6 \
     --prompting-method zero_shot \
     --target-language python \
     --datapoint-id c5d19dc8f2478ee8d9cba8cc2e4cd838
 ```
 
 Here you can adjust the parameters to test different configurations.
-The `--model-name` flag allows you to choose among [Gemini models](https://ai.google.dev/gemini-api/docs/models), or `gemini-2.5-flash-lite` and `gemini-2.0-flash-lite`, to be specific.
+The `--model-name` flag allows you to choose between `us.anthropic.claude-sonnet-4-6` and `us.anthropic.claude-haiku-4-5`.
 The `--prompting-method` flag should correspond to one of the functions you implemented: `zero_shot`, `two_step_chain_of_thought`, `iterative_refinement_with_feedback`, or your custom method.
 The `--target-language` flag can be set to `python`, `rust`, or `ocaml`.
 Finally, the `--datapoint-id` should be chosen from the `src_uid` field in the dataset located at [`data/dataset.jsonl`](data/dataset.jsonl).
@@ -493,7 +493,7 @@ python evaluate.py \
   --dry-run \
   --target-language python \
   --prompting-method zero_shot \
-  --model-name gemini-2.0-flash-lite
+  --model-name us.anthropic.claude-haiku-4-5
 ```
 
 Running with `--dry-run` is a useful debugging step before you commit to full-scale evaluation.
@@ -507,11 +507,11 @@ Each experiment corresponds to a single combination of these factors and can be 
 python evaluate.py \
   --target-language python \
   --prompting-method zero_shot \
-  --model-name gemini-2.0-flash-lite
+  --model-name us.anthropic.claude-haiku-4-5
 ```
 
-This command synthesizes Python programs using your zero-shot prompting method with the `gemini-2.0-flash-lite` model.
-The evaluation results are then saved as a JSON report, for example `reports/final_report_python_zero_shot_gemini-2.0-flash-lite.json`.
+This command synthesizes Python programs using your zero-shot prompting method with the `us.anthropic.claude-haiku-4-5` model.
+The evaluation results are then saved as a JSON report, for example `reports/final_report_python_zero_shot_us.anthropic.claude-haiku-4-5.json`.
 If you rerun the same command, the existing report will be overwritten.
 To avoid surprises, make sure you first test your prompting strategy with `synthesize_one.py` and perform a dry run before attempting the full evaluation.
 
@@ -526,16 +526,9 @@ Assuming each attempt uses about two LLM calls on average, the full set of exper
 If each call takes ten seconds, the total runtime would exceed 6-7 hours if done sequentially.
 For this reason, start early and consider **parallelizing the experiments**.
 
-The default expectation is that you evaluate two different language models, but you are not limited to `gemini-2.0-flash` and `gemini-2.5-flash-lite`.
-You may choose other Gemini models from the [official list](https://ai.google.dev/gemini-api/docs/models), as your API key should work with them.
-Keep in mind, however, that more advanced models such as `gemini-2.5-pro` already incorporate their own reasoning capabilities, which makes some prompting methods—like two-step chain-of-thought—less meaningful.
-In addition, these models tend to be slower and more expensive, often generating long “thinking” traces without noticeably better results.
-
-For a sensible comparison for speed, you might prioritize ones such as `gemini-2.0-flash-lite`.
-If the advanced models feel too slow, you can turn thinking off by default:
-``` python
-thinking_config = ThinkingConfig(thinking_budget=0)
-```
+The default expectation is that you evaluate two different language models: `us.anthropic.claude-haiku-4-5` (smaller/faster) and `us.anthropic.claude-sonnet-4-6` (larger/more capable).
+Keep in mind that more advanced models already incorporate their own reasoning capabilities, which makes some prompting methods—like two-step chain-of-thought—less meaningful.
+In addition, larger models tend to be slower and more expensive.
 
 # Part 4: Visualization
 
@@ -554,18 +547,18 @@ For example, you might see output like:
 
 ```
 Missing experiments (12):
-  - python-gemini-2.5-flash-lite-two_step_chain_of_thought
-  - python-gemini-2.5-flash-lite-iterative_refinement
-  - python-gemini-2.0-flash-lite-zero_shot
-  - python-gemini-2.0-flash-lite-iterative_refinement
-  - rust-gemini-2.5-flash-lite-two_step_chain_of_thought
-  - rust-gemini-2.5-flash-lite-iterative_refinement
-  - rust-gemini-2.0-flash-lite-zero_shot
-  - rust-gemini-2.0-flash-lite-iterative_refinement
-  - ocaml-gemini-2.5-flash-lite-two_step_chain_of_thought
-  - ocaml-gemini-2.5-flash-lite-iterative_refinement
-  - ocaml-gemini-2.0-flash-lite-zero_shot
-  - ocaml-gemini-2.0-flash-lite-iterative_refinement
+  - python-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
+  - python-us.anthropic.claude-sonnet-4-6-iterative_refinement
+  - python-us.anthropic.claude-haiku-4-5-zero_shot
+  - python-us.anthropic.claude-haiku-4-5-iterative_refinement
+  - rust-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
+  - rust-us.anthropic.claude-sonnet-4-6-iterative_refinement
+  - rust-us.anthropic.claude-haiku-4-5-zero_shot
+  - rust-us.anthropic.claude-haiku-4-5-iterative_refinement
+  - ocaml-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
+  - ocaml-us.anthropic.claude-sonnet-4-6-iterative_refinement
+  - ocaml-us.anthropic.claude-haiku-4-5-zero_shot
+  - ocaml-us.anthropic.claude-haiku-4-5-iterative_refinement
 ```
 
 When you have some reports in place, generate your main figure by running:

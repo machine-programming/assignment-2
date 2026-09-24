@@ -3,7 +3,7 @@ import time
 import random
 from typing import Dict, Any, Optional
 from dataset import ProgramSynthesisDatapoint
-from model import GeminiClient
+from model import BedrockClient
 from logger import SynthesisLogger
 from report import EvaluationReport
 
@@ -12,7 +12,7 @@ class ProgramSynthesizer:
     """Parent class for program synthesis using different prompting methods."""
     
     def __init__(self, target_language: str, prompting_method: str, 
-                 model_name: str = "gemini-1.5-flash", api_key: Optional[str] = None,
+                 model_name: str = "us.anthropic.claude-haiku-4-5", api_key: Optional[str] = None,
                  logger: Optional[SynthesisLogger] = None):
         """
         Initialize program synthesizer.
@@ -20,7 +20,7 @@ class ProgramSynthesizer:
         Args:
             target_language: Target programming language
             prompting_method: Method to use for prompting
-            model_name: Name of the Gemini model
+            model_name: Bedrock model ID
             api_key: API key (optional, will use environment variable)
             logger: SynthesisLogger instance (optional, will create default if None)
         """
@@ -28,8 +28,7 @@ class ProgramSynthesizer:
         self.prompting_method = prompting_method
         self.model_name = model_name
         
-        # Initialize Gemini client
-        self.model = GeminiClient(model_name, api_key)
+        self.model = BedrockClient(model_name, api_key)
         
         # Use provided logger or create default one
         self.logger = logger if logger is not None else SynthesisLogger()
