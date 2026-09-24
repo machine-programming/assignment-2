@@ -34,7 +34,7 @@ Code Files
 
 Experiment Reports (JSONL)
 - `reports/`
-  - `python_zero_shot_us.anthropic.claude-haiku-4-5.jsonl`
+  - `python_zero_shot_claude-haiku.jsonl`
   - … (one file per experiment, 24 in total)
 
 Figures
@@ -443,14 +443,14 @@ This script lets you run a single synthesis experiment with configurable paramet
 
 ```bash
 python synthesize_one.py \
-    --model-name us.anthropic.claude-sonnet-4-6 \
+    --model-name claude-sonnet \
     --prompting-method zero_shot \
     --target-language python \
     --datapoint-id c5d19dc8f2478ee8d9cba8cc2e4cd838
 ```
 
 Here you can adjust the parameters to test different configurations.
-The `--model-name` flag allows you to choose between `us.anthropic.claude-sonnet-4-6` and `us.anthropic.claude-haiku-4-5`.
+The `--model-name` flag allows you to choose between `claude-sonnet` and `claude-haiku`.
 The `--prompting-method` flag should correspond to one of the functions you implemented: `zero_shot`, `two_step_chain_of_thought`, `iterative_refinement_with_feedback`, or your custom method.
 The `--target-language` flag can be set to `python`, `rust`, or `ocaml`.
 Finally, the `--datapoint-id` should be chosen from the `src_uid` field in the dataset located at [`data/dataset.jsonl`](data/dataset.jsonl).
@@ -493,7 +493,7 @@ python evaluate.py \
   --dry-run \
   --target-language python \
   --prompting-method zero_shot \
-  --model-name us.anthropic.claude-haiku-4-5
+  --model-name claude-haiku
 ```
 
 Running with `--dry-run` is a useful debugging step before you commit to full-scale evaluation.
@@ -507,11 +507,11 @@ Each experiment corresponds to a single combination of these factors and can be 
 python evaluate.py \
   --target-language python \
   --prompting-method zero_shot \
-  --model-name us.anthropic.claude-haiku-4-5
+  --model-name claude-haiku
 ```
 
-This command synthesizes Python programs using your zero-shot prompting method with the `us.anthropic.claude-haiku-4-5` model.
-The evaluation results are then saved as a JSON report, for example `reports/final_report_python_zero_shot_us.anthropic.claude-haiku-4-5.json`.
+This command synthesizes Python programs using your zero-shot prompting method with the `claude-haiku` model.
+The evaluation results are then saved as a JSON report, for example `reports/final_report_python_zero_shot_claude-haiku.json`.
 If you rerun the same command, the existing report will be overwritten.
 To avoid surprises, make sure you first test your prompting strategy with `synthesize_one.py` and perform a dry run before attempting the full evaluation.
 
@@ -526,7 +526,7 @@ Assuming each attempt uses about two LLM calls on average, the full set of exper
 If each call takes ten seconds, the total runtime would exceed 6-7 hours if done sequentially.
 For this reason, start early and consider **parallelizing the experiments**.
 
-The default expectation is that you evaluate two different language models: `us.anthropic.claude-haiku-4-5` (smaller/faster) and `us.anthropic.claude-sonnet-4-6` (larger/more capable).
+The default expectation is that you evaluate two different language models: `claude-haiku` (smaller/faster) and `claude-sonnet` (larger/more capable).
 Keep in mind that more advanced models already incorporate their own reasoning capabilities, which makes some prompting methods—like two-step chain-of-thought—less meaningful.
 In addition, larger models tend to be slower and more expensive.
 
@@ -547,18 +547,18 @@ For example, you might see output like:
 
 ```
 Missing experiments (12):
-  - python-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
-  - python-us.anthropic.claude-sonnet-4-6-iterative_refinement
-  - python-us.anthropic.claude-haiku-4-5-zero_shot
-  - python-us.anthropic.claude-haiku-4-5-iterative_refinement
-  - rust-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
-  - rust-us.anthropic.claude-sonnet-4-6-iterative_refinement
-  - rust-us.anthropic.claude-haiku-4-5-zero_shot
-  - rust-us.anthropic.claude-haiku-4-5-iterative_refinement
-  - ocaml-us.anthropic.claude-sonnet-4-6-two_step_chain_of_thought
-  - ocaml-us.anthropic.claude-sonnet-4-6-iterative_refinement
-  - ocaml-us.anthropic.claude-haiku-4-5-zero_shot
-  - ocaml-us.anthropic.claude-haiku-4-5-iterative_refinement
+  - python-claude-sonnet-two_step_chain_of_thought
+  - python-claude-sonnet-iterative_refinement
+  - python-claude-haiku-zero_shot
+  - python-claude-haiku-iterative_refinement
+  - rust-claude-sonnet-two_step_chain_of_thought
+  - rust-claude-sonnet-iterative_refinement
+  - rust-claude-haiku-zero_shot
+  - rust-claude-haiku-iterative_refinement
+  - ocaml-claude-sonnet-two_step_chain_of_thought
+  - ocaml-claude-sonnet-iterative_refinement
+  - ocaml-claude-haiku-zero_shot
+  - ocaml-claude-haiku-iterative_refinement
 ```
 
 When you have some reports in place, generate your main figure by running:

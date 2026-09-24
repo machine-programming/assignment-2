@@ -7,6 +7,12 @@ import time
 from typing import Optional
 
 
+MODEL_ALIASES = {
+    "claude-haiku": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "claude-sonnet": "us.anthropic.claude-sonnet-4-6",
+}
+
+
 class BedrockClient:
     """Client for interacting with Amazon Bedrock API."""
 
@@ -54,8 +60,9 @@ class BedrockClient:
         try:
             start_time = time.time()
 
+            model_id = MODEL_ALIASES.get(self.model_name, self.model_name)
             response = self.client.converse(
-                modelId=self.model_name,
+                modelId=model_id,
                 messages=[
                     {'role': 'user', 'content': [{'text': prompt}]}
                 ],

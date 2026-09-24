@@ -30,7 +30,7 @@ class ExperimentVisualizer:
         
         # Define experiment parameters
         self.languages = ["python", "rust", "ocaml"]
-        self.models = ["us.anthropic.claude-sonnet-4-6", "us.anthropic.claude-haiku-4-5"]
+        self.models = ["claude-sonnet", "claude-haiku"]
         self.prompting_methods = ["zero_shot", "two_step_chain_of_thought", "iterative_refinement", "YOUR_CUSTOM_PROMPTING_METHOD"]
         self.prompting_labels = ["Zero-Shot", "Chain of Thought", "Iterative Refinement", "Your Custom Prompting Method"]
 

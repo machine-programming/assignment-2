@@ -10,7 +10,7 @@ from dataset import ProgramSynthesisDatapoint
 
 
 class PythonProgramSynthesizer(ProgramSynthesizer):
-    def __init__(self, prompting_method: str = "zero_shot", model_name: str = "us.anthropic.claude-haiku-4-5", 
+    def __init__(self, prompting_method: str = "zero_shot", model_name: str = "claude-haiku", 
                  api_key: Optional[str] = None, logger: Optional[SynthesisLogger] = None):
         super().__init__("python", prompting_method, model_name, api_key, logger)
 

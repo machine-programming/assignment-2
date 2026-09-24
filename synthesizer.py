@@ -12,7 +12,7 @@ class ProgramSynthesizer:
     """Parent class for program synthesis using different prompting methods."""
     
     def __init__(self, target_language: str, prompting_method: str, 
-                 model_name: str = "us.anthropic.claude-haiku-4-5", api_key: Optional[str] = None,
+                 model_name: str = "claude-haiku", api_key: Optional[str] = None,
                  logger: Optional[SynthesisLogger] = None):
         """
         Initialize program synthesizer.

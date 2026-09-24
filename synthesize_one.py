@@ -7,7 +7,7 @@ datapoint using the specified model and prompting method.
 
 Usage:
     python synthesize_one.py \
-        --model-name us.anthropic.claude-sonnet-4-6 \
+        --model-name claude-sonnet \
         --prompting-method zero_shot \
         --target-language python \
         --datapoint-id c5d19dc8f2478ee8d9cba8cc2e4cd838
@@ -141,18 +141,18 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python synthesize_one.py --model-name us.anthropic.claude-sonnet-4-6 --prompting-method zero_shot --target-language python --datapoint-id c5d19dc8f2478ee8d9cba8cc2e4cd838
+  python synthesize_one.py --model-name claude-sonnet --prompting-method zero_shot --target-language python --datapoint-id c5d19dc8f2478ee8d9cba8cc2e4cd838
 
-  python synthesize_one.py --model-name us.anthropic.claude-haiku-4-5 --prompting-method two_step_chain_of_thought --target-language rust --datapoint-id abc123
+  python synthesize_one.py --model-name claude-haiku --prompting-method two_step_chain_of_thought --target-language rust --datapoint-id abc123
 
-  python synthesize_one.py --model-name us.anthropic.claude-sonnet-4-6 --prompting-method iterative_refinement --target-language ocaml --datapoint-id def456
+  python synthesize_one.py --model-name claude-sonnet --prompting-method iterative_refinement --target-language ocaml --datapoint-id def456
         """
     )
     
     parser.add_argument(
         "--model-name",
         required=True,
-        choices=["us.anthropic.claude-sonnet-4-6", "us.anthropic.claude-haiku-4-5"],
+        choices=["claude-sonnet", "claude-haiku"],
         help="Bedrock model ID to use"
     )
     
